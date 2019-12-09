@@ -1,0 +1,18 @@
+{
+  "name": "ultimate-rx",
+  "version": "1.0.0",
+  "description": "Repository for completing ultimate RxJS cource from Ultimate Courses",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "rxjs",
+    "ultimatecources"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "rxjs": "^6.5.3"
+  }
+}
