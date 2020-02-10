@@ -1,16 +1,15 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
+    "outDir": "./dist/",
+    "sourceMap": true,
     "declaration": false,
-    "importHelpers": true,
-    "lib": ["dom", "es2018"],
     "module": "es2015",
     "moduleResolution": "node",
-    "noEmitHelpers": true,
-    "noImplicitAny": true,
-    "outDir": "./dist/",
-    "rootDir": ".",
-    "sourceMap": true,
-    "target": "es5"
+    "target": "es5",
+    "lib": [
+      "es2018",
+      "dom"
+    ]
   }
 }

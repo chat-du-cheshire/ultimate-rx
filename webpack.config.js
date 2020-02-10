@@ -1,33 +1,42 @@
-
 const path = require('path');
-const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const ROOT = path.resolve(__dirname, 'src');
+const DESTINATION = path.resolve(__dirname, 'dist');
+const PROD = process.env.NODE_ENV === 'production';
+
 
 const rules = [
     {
-        test: /\.ts$/,
-        loaders: ['awesome-typescript-loader']
+        enforce: 'pre',
+        test: /\.js$/,
+        use: 'source-map-loader'
     },
-    { test: /\.html$/, loader: 'html-loader' },
+    {
+        enforce: 'pre',
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: 'tslint-loader'
+    },
+    {
+        test: /\.ts$/,
+        exclude: [/node_modules/],
+        use: 'awesome-typescript-loader'
+    }
 ];
 
 const plugins = [
-    new webpack.DefinePlugin({
-        'process.env': {
-            'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-        }
-    }),
+    new HtmlWebpackPlugin({
+        template: 'index.html'
+    })
 ];
 
 let mode = 'development';
 
-if (process.env.NODE_ENV === 'production') {
+if (PROD) {
     mode = 'production';
     plugins.push(
-        new webpack.LoaderOptionsPlugin({
-            minimize: true,
-            debug: false
-        }),
         new UglifyJsPlugin({
             sourceMap: true,
             uglifyOptions: {
@@ -45,17 +54,13 @@ if (process.env.NODE_ENV === 'production') {
             }
         })
     );
-} else {
-    plugins.push(
-        new webpack.NamedModulesPlugin()
-    );
 }
 
 module.exports = {
     cache: true,
-    context: __dirname,
+    context: ROOT,
     devServer: {
-        contentBase: __dirname,
+        contentBase: ROOT,
         historyApiFallback: true,
         stats: {
             chunks: false,
@@ -68,18 +73,16 @@ module.exports = {
             modules: false,
             warnings: false
         },
-        publicPath: './dist/',
         port: 3000
     },
-    devtool: 'source-map',
+    devtool: PROD ? false : 'source-map',
     entry: {
-        index: ['./src/index.ts']
+        index: ['index.ts']
     },
     output: {
         filename: '[name].js',
         chunkFilename: '[name]-chunk.js',
-        publicPath: './dist/',
-        path: path.resolve(__dirname, 'dist')
+        path: DESTINATION
     },
     node: {
         global: true,
@@ -90,7 +93,7 @@ module.exports = {
     resolve: {
         extensions: ['.ts', '.js'],
         modules: [
-            'src',
+            ROOT,
             'node_modules'
         ]
     },

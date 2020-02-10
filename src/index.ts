@@ -12,7 +12,7 @@ const observable = new Observable((subscriber) => {
     subscriber.complete();
     subscriber.next(1);
     subscriber.next(2);
-    subscriber.error(new Error('123'))
+    subscriber.error(new Error('123'));
 });
 
 observable.subscribe(observer);
