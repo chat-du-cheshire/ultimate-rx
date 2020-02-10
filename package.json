@@ -2,9 +2,13 @@
   "name": "ultimate-rx",
   "version": "1.0.0",
   "description": "Repository for completing ultimate RxJS cource from Ultimate Courses",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "cross-env NODE_ENV=production webpack -p",
+    "build:dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
+    "build:production": "npm run clean && npm run build",
+    "clean": "rimraf build",
+    "start": "npm run build:dev"
   },
   "keywords": [
     "rxjs",
@@ -14,5 +18,16 @@
   "license": "ISC",
   "dependencies": {
     "rxjs": "^6.5.3"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^5.2.1",
+    "cross-env": "^7.0.0",
+    "html-loader": "^0.5.5",
+    "rimraf": "^3.0.2",
+    "typescript": "^3.7.5",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.3"
   }
 }
