@@ -7,7 +7,7 @@
     "build": "cross-env NODE_ENV=production webpack -p",
     "build:dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
     "build:production": "npm run clean && npm run build",
-    "clean": "rimraf build",
+    "clean": "rimraf dist",
     "start": "npm run build:dev"
   },
   "keywords": [
@@ -25,6 +25,7 @@
     "html-loader": "^0.5.5",
     "rimraf": "^3.0.2",
     "typescript": "^3.7.5",
+    "uglify-js": "^3.7.7",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",

@@ -4,7 +4,7 @@ const observer = {
     next: (value: any) => console.log('Next: ', value),
     error: (error: any) => console.log('Error: ', error),
     complete: () => console.log('Complete!')
-}
+};
 
 const observable = new Observable((subscriber) => {
     subscriber.next('Hi!');

@@ -4,6 +4,10 @@ const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const rules = [
+    {
+        test: /\.ts$/,
+        loaders: ['awesome-typescript-loader']
+    },
     { test: /\.html$/, loader: 'html-loader' },
 ];
 
@@ -26,31 +30,22 @@ if (process.env.NODE_ENV === 'production') {
         }),
         new UglifyJsPlugin({
             sourceMap: true,
-            mangle: {
-                screw_ie8: true
-            },
-            compress: {
-                unused: true,
-                dead_code: true,
-                drop_debugger: true,
-                conditionals: true,
-                evaluate: true,
-                drop_console: true,
-                sequences: true,
-                booleans: true,
-                screw_ie8: true,
-                warnings: false
-            },
-            comments: false
+            uglifyOptions: {
+                mangle: true,
+                compress: {
+                    booleans: true,
+                    conditionals: true,
+                    dead_code: true,
+                    drop_console: true,
+                    drop_debugger: true,
+                    evaluate: true,
+                    sequences: true,
+                    unused: true
+                }
+            }
         })
     );
 } else {
-    rules.push({
-        test: /\.ts$/,
-        loaders: [
-            'awesome-typescript-loader'
-        ]
-    });
     plugins.push(
         new webpack.NamedModulesPlugin()
     );
@@ -78,7 +73,7 @@ module.exports = {
     },
     devtool: 'source-map',
     entry: {
-        app: ['./src/index.ts']
+        index: ['./src/index.ts']
     },
     output: {
         filename: '[name].js',
