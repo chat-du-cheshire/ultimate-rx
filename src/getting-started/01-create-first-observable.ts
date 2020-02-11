@@ -1,6 +1,6 @@
 import {Observable, Observer} from 'rxjs';
 
-console.warn('Create your first Observable');
+console.groupCollapsed('Create your first Observable');
 
 const observer: Observer<any> = {
     next: (value: any) => console.log('Next: ', value),
@@ -18,3 +18,5 @@ const observable = new Observable((subscriber) => {
 });
 
 observable.subscribe(observer);
+
+console.groupEnd();
